@@ -64,7 +64,6 @@ def create_order(request:  HttpRequest) -> HttpResponse:
 
 
 
-
 def orders_list(request: HttpRequest):
     context = {
         "orders": Order.objects.select_related("user").prefetch_related("products").all(),
