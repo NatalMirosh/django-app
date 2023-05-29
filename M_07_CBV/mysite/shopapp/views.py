@@ -47,9 +47,9 @@ class ProductDetailView(DetailView):
 
 class ProductsListView(ListView):
     template_name = 'shopapp/products-list.html'
-    #model = Product
     context_object_name = "products"
     queryset = Product.objects.filter(archived=False)
+
 
 class ProductCreateView(CreateView):
     model = Product
@@ -67,6 +67,7 @@ class ProductUpdateView(UpdateView):
             "shopapp:product_details",
             kwargs={"pk": self.object.pk},
         )
+
 
 class ProductDeleteView(DeleteView):
     model = Product
@@ -93,3 +94,26 @@ class OrderDetailView(DetailView):
         .select_related("user")
         .prefetch_related("products")
     )
+
+
+class OrderCreateView(CreateView):
+    model = Order
+    fields = "delivery_address", "promocode", "user", "products"
+    success_url = reverse_lazy("shopapp:orders_list")
+
+
+class OrderUpdateView(UpdateView):
+    model = Order
+    fields = "delivery_address", "promocode", "user", "products"
+    template_name_suffix = "_update_form"
+
+    def get_success_url(self):
+        return reverse(
+            "shopapp:order_details",
+            kwargs={"pk": self.object.pk},
+        )
+
+
+class OrderDeleteView(DeleteView):
+    model = Order
+    success_url = reverse_lazy("shopapp:orders_list")
