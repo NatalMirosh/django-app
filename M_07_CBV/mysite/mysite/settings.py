@@ -56,7 +56,9 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'C:/Users/Mikhail/PycharmProjects/dpo_python_django/M_07_CBV/mysite/shopapp/templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
