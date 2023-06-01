@@ -2,12 +2,12 @@
 
 
 {% block title %}
-  Create product
+  Create order
 {% endblock %}
 
 
 {% block body %}
-<h1>Create product</h1>
+<h1>Create order</h1>
 <div>
   <form method="post">
     {% csrf_token %}
@@ -16,7 +16,7 @@
   </form>
 </div>
 <div>
-  <a href="{% url 'shopapp:products_list' %}"
+  <a href="{% url 'shopapp:orders_list' %}"
   >Back to products list</a>
 </div>
 {% endblock %}
