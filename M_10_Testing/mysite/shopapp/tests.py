@@ -132,7 +132,8 @@ class ProductsExportViewTestCase(TestCase):
 
 class OrderDetailViewTestCase(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUpClass(cls):
+        super().setUpClass()
         cls.user = User.objects.create_user(username='bob', password='qwerty')
         view_order_permission = Permission.objects.get(codename='view_order')
         cls.user.user_permissions.add(view_order_permission)
@@ -155,10 +156,12 @@ class OrderDetailViewTestCase(TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        super().tearDownClass()
+
         cls.product.delete()
         cls.order.delete()
         cls.user.delete()
-        super().tearDownClass()
+
 
 
 # class OrdersExportTestCase(TestCase):
@@ -188,13 +191,18 @@ class OrderDetailViewTestCase(TestCase):
 #         cls.user.delete()
 #         super().tearDownClass()
 
+
 class OrdersExportTestCase(TestCase):
     fixtures = [
+        'products-fixture.json',
         'orders-fixture.json',
+        'users-fixture.json',
     ]
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpClass(cls):
+        super().setUpClass()
+
         cls.user = User.objects.create_user(username='admin', password='admin123')
         cls.user.is_staff = True
         cls.user.save()
@@ -216,5 +224,6 @@ class OrdersExportTestCase(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        cls.user.delete()
         super().tearDownClass()
+        cls.user.groups.clear()
+        cls.user.delete()
