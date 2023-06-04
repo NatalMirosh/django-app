@@ -1,0 +1,96 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$BdmxC1TFeIr2yAzz5gUGZy$2ucubTeWP33hYae+1YrY5rs/m3tHoniKVUhAMhgf4lw=",
+      "last_login": "2023-06-01T14:36:46.209Z",
+      "is_superuser": true,
+      "username": "mikhail",
+      "first_name": "",
+      "last_name": "",
+      "email": "kykyfso256@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2023-05-28T10:00:52.487Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$gdX5Ua8iWKhHCxUAOn1AfO$tsLbQmq56DYyFL4TzncTKjVJOt9wupSo80t35iuUWY8=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "john",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-06-01T06:56:35.461Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$0qzlxq00nvp2GOnWStLNBb$Uw7fc/WbKyjm3+jik/lqiMjSOkIbTOIyzeta2KHlrYM=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "boby",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-06-01T07:01:54.676Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$oNCa2vht9juEMvVyZoCCyE$zq4sNGyvMng+QQoP50Yy2jO1ivCj0G8I9EmXZN4+LnE=",
+      "last_login": "2023-06-01T14:28:33.918Z",
+      "is_superuser": false,
+      "username": "vasya",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-06-01T07:12:46Z",
+      "groups": [],
+      "user_permissions": [
+        32
+      ]
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$vb7MV4GwWmEtgGAPkzVb0u$40Q9nay3P6K0PVhcsO9CRBbavCRVWGATeiwUpmhOTww=",
+      "last_login": "2023-06-01T14:36:25.752Z",
+      "is_superuser": false,
+      "username": "tanya",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-06-01T07:40:46Z",
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  }
+]
