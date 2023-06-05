@@ -1,17 +1,77 @@
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LogoutView
+from django.contrib.auth.models import User
+from django.views.generic import ListView
+from django.views.generic import DetailView
+
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, CreateView
 
+from .forms import AvatarUploadForm
 from .models import Profile
+
+
+class UserListView(ListView):
+    model = User
+    template_name = 'myauth/user_list.html'
+    context_object_name = 'users'
+
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'myauth/user_detail.html'
+    context_object_name = 'user'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.filter(user=self.request.user).first()
+        context['user'] = self.request.user
+        context['profile'] = profile
+        return context
+
+    @user_passes_test(lambda u: u.is_superuser)
+    def post(self, request):
+        form = AvatarUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            avatar = form.cleaned_data['avatar']
+            #user = self.get_object()
+            profile, created = Profile.objects.get_or_create(user=self.request.user)
+            profile.avatar = avatar
+            profile.save()
+            return self.render_to_response(self.get_context_data(success_message='Avatar uploaded successfully'))
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
 
 
 class AboutMeView(TemplateView):
     template_name = "myauth/about-me.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.filter(user=self.request.user).first()
+        context['user'] = self.request.user
+        context['profile'] = profile
+        return context
+
+    def get(self, request):
+        form = AvatarUploadForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = AvatarUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            avatar = form.cleaned_data['avatar']
+            profile, created = Profile.objects.get_or_create(user=self.request.user)
+            profile.avatar = avatar
+            profile.save()
+            return render(request, self.template_name, {'form': form, 'success_message': 'Avatar uploaded successfully'})
+        else:
+            return render(request, self.template_name, {'form': form})
 
 
 class RegisterView(CreateView):
