@@ -1,17 +1,21 @@
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
+from django.contrib.admin.views.decorators import staff_member_required
+
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.models import User
-from django.views.generic import ListView
+from django.utils.decorators import method_decorator
+from django.views.generic import ListView, UpdateView
 from django.views.generic import DetailView
 
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import TemplateView, CreateView
 
+from shopapp.models import ProductImage
 from .forms import AvatarUploadForm
 from .models import Profile
 
@@ -27,25 +31,21 @@ class UserDetailView(DetailView):
     template_name = 'myauth/user_detail.html'
     context_object_name = 'user'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        profile = Profile.objects.filter(user=self.request.user).first()
-        context['user'] = self.request.user
-        context['profile'] = profile
-        return context
-
-    @user_passes_test(lambda u: u.is_superuser)
-    def post(self, request):
+    @method_decorator(staff_member_required, name='post')
+    def post(self, request, *args, **kwargs):
         form = AvatarUploadForm(request.POST, request.FILES)
         if form.is_valid():
+            user = self.get_object()
             avatar = form.cleaned_data['avatar']
-            #user = self.get_object()
-            profile, created = Profile.objects.get_or_create(user=self.request.user)
-            profile.avatar = avatar
-            profile.save()
-            return self.render_to_response(self.get_context_data(success_message='Avatar uploaded successfully'))
-        else:
-            return self.render_to_response(self.get_context_data(form=form))
+            if request.user.is_staff:
+                user.profile.avatar = avatar
+                user.profile.save()
+        return redirect('myauth:user-detail', pk=user.pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = AvatarUploadForm()
+        return context
 
 
 class AboutMeView(TemplateView):

@@ -25,18 +25,21 @@ class ShopIndexView(View):
         return render(request, 'shopapp/shop-index.html', context=context)
 
 
-class ProductDetailsView(DetailView):
-    template_name = "shopapp/products-details.html"
-    #model = Product.objects.prefetch_related("images")
-    queryset = Product.objects.prefetch_related("images")
-    context_object_name = "product"
 
 
 class ProductsListView(ListView):
     template_name = "shopapp/products-list.html"
-    # model = Product
     context_object_name = "products"
     queryset = Product.objects.filter(archived=False)
+    # model = Product
+
+
+class ProductDetailsView(DetailView):
+    template_name = "shopapp/products-details.html"
+    queryset = Product.objects.prefetch_related("images")
+    context_object_name = "product"
+    #model = Product.objects.prefetch_related("images")
+
 
 
 class ProductCreateView(CreateView):

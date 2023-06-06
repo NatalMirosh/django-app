@@ -19,14 +19,16 @@
   <p>Email: {{ user.email }}</p>
   <p>Bio: {{ user.profile.bio }}</p>
 
-  {% if user == current_user or request.user.is_superuser %}
+  {% if request.user.is_staff %}
     <h2>Upload Avatar</h2>
+
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">Upload</button>
+      <input type="submit" value="Сохранить аватарку">
     </form>
-  {% endif %}
+
+    {% endif %}
 
   <a href="{% url 'myauth:user_list' %}">Back to User List</a>
 {% endblock %}
