@@ -7,7 +7,8 @@ from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
-from .models import Product, Order
+from .forms import ProductForm
+from .models import Product, Order, ProductImage
 
 
 class ShopIndexView(View):
@@ -24,35 +25,49 @@ class ShopIndexView(View):
         return render(request, 'shopapp/shop-index.html', context=context)
 
 
-class ProductDetailsView(DetailView):
-    template_name = "shopapp/products-details.html"
-    model = Product
-    context_object_name = "product"
 
 
 class ProductsListView(ListView):
     template_name = "shopapp/products-list.html"
-    # model = Product
     context_object_name = "products"
     queryset = Product.objects.filter(archived=False)
+    # model = Product
+
+
+class ProductDetailsView(DetailView):
+    template_name = "shopapp/products-details.html"
+    queryset = Product.objects.prefetch_related("images")
+    context_object_name = "product"
+    #model = Product.objects.prefetch_related("images")
+
 
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = "name", "price", "description", "discount"
+    fields = "name", "price", "description", "discount", "preview",
     success_url = reverse_lazy("shopapp:products_list")
 
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = "name", "price", "description", "discount"
+    #fields = "name", "price", "description", "discount", "preview",
     template_name_suffix = "_update_form"
+    form_class = ProductForm
 
     def get_success_url(self):
         return reverse(
             "shopapp:product_details",
             kwargs={"pk": self.object.pk},
         )
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        for image in form.files.getlist("image"):
+            ProductImage.objects.create(
+                product=self.object,
+                image=image,
+            )
+        return response
 
 
 class ProductDeleteView(DeleteView):
