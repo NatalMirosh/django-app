@@ -22,11 +22,12 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('shop/', include('shopapp.urls')),
 ]
 
 urlpatterns += i18n_patterns(
     path('myauth/', include('myauth.urls')),
+    path('shop/', include('shopapp.urls')),
+
 )
 
 if settings.DEBUG:
