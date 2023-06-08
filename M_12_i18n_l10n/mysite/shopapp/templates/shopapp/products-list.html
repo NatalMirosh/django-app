@@ -1,5 +1,4 @@
 {% extends 'shopapp/base.html' %}
-
 {% load i18n %}
 
 {% block title %}
@@ -30,9 +29,7 @@
         {% endif %}
       </div>
     {% endfor %}
-
     </div>
-
     <div>
         <a href="{% url 'shopapp:product_create' %}"
         >{% translate 'Create a new product' %}</a>
