@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-08 01:01+0600\n"
+"POT-Creation-Date: 2023-06-08 15:11+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,15 +39,122 @@ msgstr ""
 msgid "Russian"
 msgstr "Русский"
 
-#: .\shopapp\templates\shopapp\products-list.html:6
+#: .\shopapp\models.py:16
+msgid "Продукт"
+msgstr ""
+
+#: .\shopapp\models.py:17
+msgid "Продукты"
+msgstr ""
+
+#: .\shopapp\models.py:20
+msgid "Название"
+msgstr ""
+
+#: .\shopapp\models.py:21 .\shopapp\models.py:42
+msgid "Описание"
+msgstr ""
+
+#: .\shopapp\models.py:22
+msgid "Цена"
+msgstr ""
+
+#: .\shopapp\models.py:23
+msgid "Скидка"
+msgstr ""
+
+#: .\shopapp\models.py:24 .\shopapp\models.py:52
+msgid "Дата создания"
+msgstr ""
+
+#: .\shopapp\models.py:25
+msgid "Архивировано"
+msgstr ""
+
+#: .\shopapp\models.py:26
+msgid "Превью"
+msgstr ""
+
+#: .\shopapp\models.py:47
+msgid "Заказ"
+msgstr ""
+
+#: .\shopapp\models.py:48
+msgid "Заказы"
+msgstr ""
+
+#: .\shopapp\models.py:50
+msgid "Адрес доставки"
+msgstr ""
+
+#: .\shopapp\models.py:51
+msgid "Промокод"
+msgstr ""
+
+#: .\shopapp\models.py:53
+msgid "Пользователь"
+msgstr ""
+
+#: .\shopapp\models.py:54
+msgid "Товар"
+msgstr ""
+
+#: .\shopapp\models.py:55
+msgid "Квитанция"
+msgstr ""
+
+#: .\shopapp\templates\shopapp\products-details.html:4
+#: .\shopapp\templates\shopapp\products-details.html:8
+msgid "Product"
+msgstr "Товар"
+
+#: .\shopapp\templates\shopapp\products-details.html:10
+msgid "Description"
+msgstr "Описание"
+
+#: .\shopapp\templates\shopapp\products-details.html:11
+#: .\shopapp\templates\shopapp\products-list.html:21
+msgid "Price"
+msgstr "Цена"
+
+#: .\shopapp\templates\shopapp\products-details.html:12
+#: .\shopapp\templates\shopapp\products-list.html:23
+msgid "Discount"
+msgstr "Скидка"
+
+#: .\shopapp\templates\shopapp\products-details.html:13
+msgid "Archived"
+msgstr "Архивировано"
+
+#: .\shopapp\templates\shopapp\products-details.html:19
+msgid "Images"
+msgstr "Изображения"
+
+#: .\shopapp\templates\shopapp\products-details.html:27
+msgid "No images uploaded yet"
+msgstr "Изображения еще не загружены"
+
+#: .\shopapp\templates\shopapp\products-details.html:32
+msgid "Update product"
+msgstr "Изменить(обновить) товар"
+
+#: .\shopapp\templates\shopapp\products-details.html:35
+msgid "Archive product"
+msgstr "Архивировать товар"
+
+#: .\shopapp\templates\shopapp\products-details.html:38
+msgid "Back to products list"
+msgstr "Назад к списку товаров"
+
+#: .\shopapp\templates\shopapp\products-list.html:4
 msgid "Products list"
 msgstr "Список товаров"
 
-#: .\shopapp\templates\shopapp\products-list.html:10
+#: .\shopapp\templates\shopapp\products-list.html:7
 msgid "Products"
 msgstr "Товары"
 
-#: .\shopapp\templates\shopapp\products-list.html:13
+#: .\shopapp\templates\shopapp\products-list.html:10
 #, python-format
 msgid ""
 "\n"
@@ -70,28 +177,20 @@ msgstr[2] ""
 "              Доступно %(product_count)s товаров.\n"
 "          "
 
-#: .\shopapp\templates\shopapp\products-list.html:23
+#: .\shopapp\templates\shopapp\products-list.html:20
 msgctxt "product_name"
 msgid "Name"
 msgstr "Название"
 
-#: .\shopapp\templates\shopapp\products-list.html:24
-msgid "Price"
-msgstr "Цена"
-
-#: .\shopapp\templates\shopapp\products-list.html:25
+#: .\shopapp\templates\shopapp\products-list.html:22
 msgid "no discount"
 msgstr "Нет скидки"
 
-#: .\shopapp\templates\shopapp\products-list.html:26
-msgid "Discount"
-msgstr "Скидка"
-
-#: .\shopapp\templates\shopapp\products-list.html:38
+#: .\shopapp\templates\shopapp\products-list.html:33
 msgid "Create a new product"
 msgstr "Создать новый товар"
 
-#: .\shopapp\templates\shopapp\products-list.html:42
+#: .\shopapp\templates\shopapp\products-list.html:37
 #, python-format
 msgid ""
 "\n"
@@ -105,3 +204,6 @@ msgstr ""
 "          <a href=\"%(create_product_url)s\"\n"
 "      >Создать новый</a>\n"
 "    "
+
+#~ msgid "Product #"
+#~ msgstr "Товар"
