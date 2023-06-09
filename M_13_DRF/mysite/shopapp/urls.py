@@ -12,16 +12,18 @@ from .views import (
     ProductDeleteView,
     ProductsDataExportView,
     ProductViewSet,
+    OrderViewSet,
 )
 
 app_name = "shopapp"
 
-routers = DefaultRouter()
-routers.register("products", ProductViewSet)
+router = DefaultRouter()
+router.register("products", ProductViewSet)
+router.register("orders", OrderViewSet)
 
 urlpatterns = [
     path("", ShopIndexView.as_view(), name="index"),
-    path("api/", include(routers.urls)),
+    path("api/", include(router.urls)),
 
     path("products/", ProductsListView.as_view(), name="products_list"),
     path("products/export/", ProductsDataExportView.as_view(), name="products-export"),

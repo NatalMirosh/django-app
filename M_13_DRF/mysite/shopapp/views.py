@@ -12,7 +12,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from .forms import ProductForm
 from .models import Product, Order, ProductImage
-from .serializers import ProductSerializer
+from .serializers import ProductSerializer, OrderSerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -35,6 +35,28 @@ class ProductViewSet(ModelViewSet):
         "name",
         "price",
         "discount",
+    ]
+
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    filter_backends = [
+        SearchFilter,
+        DjangoFilterBackend,
+        OrderingFilter,
+    ]
+    search_fields = ["delivery_address"]
+    filterset_fields = [
+        "delivery_address",
+        "promocode",
+        "user",
+        "products",
+    ]
+    ordering_fields = [
+        "delivery_address",
+        "user",
+        "products",
     ]
 
 
