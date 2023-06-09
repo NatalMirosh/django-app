@@ -120,7 +120,7 @@ USE_TZ = True
 
 USE_L10N = True
 
-LOCALE_PATH = [
+LOCALE_PATHS = [
     BASE_DIR / 'locale/'
 ]
 
