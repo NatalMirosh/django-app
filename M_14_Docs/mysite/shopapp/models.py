@@ -14,7 +14,7 @@ class Product(models.Model):
     Модель Product представляет товар,
     который можно продавать в интернет магазине
 
-    Заказы тут :model:`shopapp.Order`
+    Заказы тут :model:`blogapp.Order`
     """
     class Meta:
         ordering = ["name", "price"]

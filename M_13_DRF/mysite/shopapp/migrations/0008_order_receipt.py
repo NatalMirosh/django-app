@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shopapp', '0007_alter_product_options'),
+        ('blogapp', '0007_alter_product_options'),
     ]
 
     operations = [

@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'shopapp.apps.ShopappConfig',
+    'blogapp.apps.ShopappConfig',
     'myauth.apps.MyauthConfig',
 ]
 

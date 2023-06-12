@@ -21,17 +21,17 @@ class ShopIndexView(View):
             "time_running": default_timer(),
             "products": products,
         }
-        return render(request, 'shopapp/shop-index.html', context=context)
+        return render(request, 'blogapp/shop-index.html', context=context)
 
 
 class ProductDetailsView(DetailView):
-    template_name = "shopapp/products-details.html"
+    template_name = "blogapp/products-details.html"
     model = Product
     context_object_name = "product"
 
 
 class ProductsListView(ListView):
-    template_name = "shopapp/products-list.html"
+    template_name = "blogapp/products-list.html"
     # model = Product
     context_object_name = "products"
     queryset = Product.objects.filter(archived=False)
@@ -40,7 +40,7 @@ class ProductsListView(ListView):
 class ProductCreateView(CreateView):
     model = Product
     fields = "name", "price", "description", "discount"
-    success_url = reverse_lazy("shopapp:products_list")
+    success_url = reverse_lazy("blogapp:products_list")
 
 
 class ProductUpdateView(UpdateView):
@@ -50,14 +50,14 @@ class ProductUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse(
-            "shopapp:product_details",
+            "blogapp:product_details",
             kwargs={"pk": self.object.pk},
         )
 
 
 class ProductDeleteView(DeleteView):
     model = Product
-    success_url = reverse_lazy("shopapp:products_list")
+    success_url = reverse_lazy("blogapp:products_list")
 
     def form_valid(self, form):
         success_url = self.get_success_url()
@@ -75,7 +75,7 @@ class OrdersListView(LoginRequiredMixin, ListView):
 
 
 class OrderDetailView(PermissionRequiredMixin, DetailView):
-    permission_required = "shopapp.view_order"
+    permission_required = "blogapp.view_order"
     queryset = (
         Order.objects
         .select_related("user")

@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'shopapp.apps.ShopappConfig',
+    'blogapp.apps.ShopappConfig',
     'myauth.apps.MyauthConfig',
 ]
 
@@ -58,7 +58,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'C:/Users/Mikhail/PycharmProjects/dpo_python_django/M_07_CBV/mysite/shopapp/templates'
+            'C:/Users/Mikhail/PycharmProjects/dpo_python_django/M_07_CBV/mysite/blogapp/templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {

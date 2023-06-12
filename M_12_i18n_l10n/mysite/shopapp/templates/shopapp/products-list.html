@@ -18,7 +18,7 @@
     <div>
     {% for product in products %}
       <div>
-        <p><a href="{% url 'shopapp:product_details' pk=product.pk %}"
+        <p><a href="{% url 'blogapp:product_details' pk=product.pk %}"
         >{% translate 'Name' context 'product_name' %}: {{ product.name }}</a></p>
         <p>{% translate 'Price' %}: {{ product.price }}</p>
         {% translate 'no discount' as no_discount %}
@@ -31,11 +31,11 @@
     {% endfor %}
     </div>
     <div>
-        <a href="{% url 'shopapp:product_create' %}"
+        <a href="{% url 'blogapp:product_create' %}"
         >{% translate 'Create a new product' %}</a>
     </div>
   {% else %}
-      {% url 'shopapp:product_create' as create_product_url %}
+      {% url 'blogapp:product_create' as create_product_url %}
       {% blocktranslate %}
         <h3>No products yet</h3>
           <a href="{{ create_product_url }}"
