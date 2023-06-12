@@ -21,7 +21,7 @@ class ShopIndexView(View):
             "time_running": default_timer(),
             "products": products,
         }
-        return render(request, 'shopapp/shop-index.html', context=context)
+        return render(request, 'blogapp/shop-index.html', context=context)
 
 
 class GroupsListView(View):
@@ -30,7 +30,7 @@ class GroupsListView(View):
             "form": GroupForm(),
             "groups": Group.objects.prefetch_related('permissions').all(),
         }
-        return render(request, 'shopapp/groups-list.html', context=context)
+        return render(request, 'blogapp/groups-list.html', context=context)
 
     def post(self, request: HttpRequest):
         form = GroupForm(request.POST)
@@ -40,13 +40,13 @@ class GroupsListView(View):
 
 
 class ProductDetailView(DetailView):
-    template_name = 'shopapp/products-details.html'
+    template_name = 'blogapp/products-details.html'
     model = Product
     context_object_name = "product"
 
 
 class ProductsListView(ListView):
-    template_name = 'shopapp/products-list.html'
+    template_name = 'blogapp/products-list.html'
     context_object_name = "products"
     queryset = Product.objects.filter(archived=False)
 
@@ -56,7 +56,7 @@ class ProductCreateView(UserPassesTestMixin, CreateView):
         return self.request.user.is_superuser
     model = Product
     fields = "name", "price", "description", "discount"
-    success_url = reverse_lazy("shopapp:products_list")
+    success_url = reverse_lazy("blogapp:products_list")
 
 
 class ProductUpdateView(UpdateView):
@@ -66,14 +66,14 @@ class ProductUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse(
-            "shopapp:product_details",
+            "blogapp:product_details",
             kwargs={"pk": self.object.pk},
         )
 
 
 class ProductDeleteView(DeleteView):
     model = Product
-    success_url = reverse_lazy("shopapp:products_list")
+    success_url = reverse_lazy("blogapp:products_list")
 
     def form_valid(self, form):
         succes_url = self.get_success_url()
@@ -91,7 +91,7 @@ class OrdersListView(LoginRequiredMixin, ListView):
 
 
 class OrderDetailView(PermissionRequiredMixin, DetailView):
-    permission_required = "shopapp.view_order"
+    permission_required = "blogapp.view_order"
     queryset = (
         Order.objects
         .select_related("user")
@@ -102,7 +102,7 @@ class OrderDetailView(PermissionRequiredMixin, DetailView):
 class OrderCreateView(CreateView):
     model = Order
     fields = "delivery_address", "promocode", "user", "products"
-    success_url = reverse_lazy("shopapp:orders_list")
+    success_url = reverse_lazy("blogapp:orders_list")
 
 
 class OrderUpdateView(UpdateView):
@@ -112,11 +112,11 @@ class OrderUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse(
-            "shopapp:order_details",
+            "blogapp:order_details",
             kwargs={"pk": self.object.pk},
         )
 
 
 class OrderDeleteView(DeleteView):
     model = Order
-    success_url = reverse_lazy("shopapp:orders_list")
+    success_url = reverse_lazy("blogapp:orders_list")

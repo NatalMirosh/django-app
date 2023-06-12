@@ -18,49 +18,49 @@ def shop_index(request: HttpRequest):
         "time_running": default_timer(),
         "products": products,
     }
-    return render(request, 'shopapp/shop-index.html', context=context)
+    return render(request, 'blogapp/shop-index.html', context=context)
 
 
 def groups_list(request: HttpRequest):
     context = {
         "groups": Group.objects.prefetch_related('permissions').all(),
     }
-    return render(request, 'shopapp/groups-list.html', context=context)
+    return render(request, 'blogapp/groups-list.html', context=context)
 
 
 def products_list(request: HttpRequest):
     context = {
         "products": Product.objects.all(),
     }
-    return render(request, 'shopapp/products-list.html', context=context)
+    return render(request, 'blogapp/products-list.html', context=context)
 
 def create_product(request:  HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = ProductForm(request.POST)
         if form.is_valid():
             form.save()
-            url = reverse("shopapp:products_list")
+            url = reverse("blogapp:products_list")
             return redirect(url)
     else:
         form = ProductForm()
     context = {
         "form": form,
     }
-    return render(request, "shopapp/create-product.html", context=context)
+    return render(request, "blogapp/create-product.html", context=context)
 
 def create_order(request:  HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = OrderForm(request.POST)
         if form.is_valid():
             form.save()
-            url = reverse("shopapp:orders_list")
+            url = reverse("blogapp:orders_list")
             return redirect(url)
     else:
         form = OrderForm()
     context = {
         "form": form,
     }
-    return render(request, "shopapp/create-order.html", context=context)
+    return render(request, "blogapp/create-order.html", context=context)
 
 
 
@@ -68,4 +68,4 @@ def orders_list(request: HttpRequest):
     context = {
         "orders": Order.objects.select_related("user").prefetch_related("products").all(),
     }
-    return render(request, 'shopapp/order_list.html', context=context)
+    return render(request, 'blogapp/order_list.html', context=context)

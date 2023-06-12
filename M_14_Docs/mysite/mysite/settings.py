@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_spectacular',
 
-    'shopapp.apps.ShopappConfig',
+    'blogapp.apps.ShopappConfig',
     'myauth.apps.MyauthConfig',
     'myapiapp.apps.MyapiappConfig',
 ]

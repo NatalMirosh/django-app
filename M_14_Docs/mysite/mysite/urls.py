@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/doc/', include('django.contrib.admindocs.urls')),
 
     path('admin/', admin.site.urls),
-    path('shop/', include('shopapp.urls')),
+    path('shop/', include('blogapp.urls')),
     path('myauth/', include('myauth.urls')),
 
     path('api/schema', SpectacularAPIView.as_view(), name="schema"),

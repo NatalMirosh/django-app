@@ -7,7 +7,7 @@ import shopapp.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shopapp', '0008_order_receipt'),
+        ('blogapp', '0008_order_receipt'),
     ]
 
     operations = [

@@ -12,7 +12,7 @@ from .views import (
     ProductsDataExportView,
 )
 
-app_name = "shopapp"
+app_name = "blogapp"
 
 urlpatterns = [
     path("", ShopIndexView.as_view(), name="index"),

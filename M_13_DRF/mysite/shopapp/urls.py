@@ -15,7 +15,7 @@ from .views import (
     OrderViewSet,
 )
 
-app_name = "shopapp"
+app_name = "blogapp"
 
 router = DefaultRouter()
 router.register("products", ProductViewSet)

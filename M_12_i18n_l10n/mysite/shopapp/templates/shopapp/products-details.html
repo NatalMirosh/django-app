@@ -30,12 +30,12 @@
     </div>
   </div>
   <div>
-    <a href="{% url 'shopapp:product_update' pk=product.pk %}">{% translate 'Update product' %}</a>
+    <a href="{% url 'blogapp:product_update' pk=product.pk %}">{% translate 'Update product' %}</a>
   </div>
   <div>
-    <a href="{% url 'shopapp:product_delete' pk=product.pk %}">{% translate 'Archive product' %}</a>
+    <a href="{% url 'blogapp:product_delete' pk=product.pk %}">{% translate 'Archive product' %}</a>
   </div>
   <div>
-    <a href="{% url 'shopapp:products_list' %}">{% translate 'Back to products list' %}</a>
+    <a href="{% url 'blogapp:products_list' %}">{% translate 'Back to products list' %}</a>
   </div>
 {% endblock %}

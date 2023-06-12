@@ -22,7 +22,7 @@ class ProductCreateViewTestCase(TestCase):
 
     def test_create_product(self):
         response = self.client.post(
-            reverse("shopapp:product_create"),
+            reverse("blogapp:product_create"),
             {
                 "name": self.product_name,
                 "price": "123.45",
@@ -30,7 +30,7 @@ class ProductCreateViewTestCase(TestCase):
                 "discount": "10",
             }
         )
-        self.assertRedirects(response, reverse("shopapp:products_list"))
+        self.assertRedirects(response, reverse("blogapp:products_list"))
         self.assertTrue(
             Product.objects.filter(name=self.product_name).exists()
         )
@@ -48,13 +48,13 @@ class ProductDetailsViewTestCase(TestCase):
 
     def test_get_product(self):
         response = self.client.get(
-            reverse("shopapp:product_details", kwargs={"pk": self.product.pk})
+            reverse("blogapp:product_details", kwargs={"pk": self.product.pk})
         )
         self.assertEqual(response.status_code, 200)
 
     def test_get_product_and_check_content(self):
         response = self.client.get(
-            reverse("shopapp:product_details", kwargs={"pk": self.product.pk})
+            reverse("blogapp:product_details", kwargs={"pk": self.product.pk})
         )
         self.assertContains(response, self.product.name)
 
@@ -65,7 +65,7 @@ class ProductsListViewTestCase(TestCase):
     ]
 
     def test_products(self):
-        response = self.client.get(reverse("shopapp:products_list"))
+        response = self.client.get(reverse("blogapp:products_list"))
         # products =  Product.objects.filter(archived=False).all()
         # products_ = response.context["products"]
         # for p, p_ in zip(products, products_):
@@ -75,7 +75,7 @@ class ProductsListViewTestCase(TestCase):
             values=(p.pk for p in response.context["products"]),
             transform=lambda p: p.pk,
         )
-        self.assertTemplateUsed(response, 'shopapp/products-list.html')
+        self.assertTemplateUsed(response, 'blogapp/products-list.html')
 
 
 class OrdersListViewTestCase(TestCase):
@@ -92,12 +92,12 @@ class OrdersListViewTestCase(TestCase):
         self.client.login(**self.credentials)
 
     def test_orders_view(self):
-        response = self.client.get(reverse("shopapp:orders_list"))
+        response = self.client.get(reverse("blogapp:orders_list"))
         self.assertContains(response, "Orders")
 
     def test_orders_view_not_authenticated(self):
         self.client.logout()
-        response = self.client.get(reverse("shopapp:orders_list"))
+        response = self.client.get(reverse("blogapp:orders_list"))
         #self.assertRedirects(response, str(settings.LOGIN_URL))
         self.assertEqual(response.status_code, 302)
         self.assertIn(str(settings.LOGIN_URL), response.url)
@@ -110,7 +110,7 @@ class ProductsExportViewTestCase(TestCase):
 
     def test_get_products(self):
         response = self.client.get(
-            reverse("shopapp:products-export"),
+            reverse("blogapp:products-export"),
         )
         self.assertEqual(response.status_code, 200)
         products = Product.objects.order_by("pk").all()
@@ -146,7 +146,7 @@ class OrderDetailViewTestCase(TestCase):
         self.client.login(username='bob', password='qwerty')
 
     def test_order_details(self):
-        url = reverse('shopapp:order_details', args=[self.order.pk])
+        url = reverse('blogapp:order_details', args=[self.order.pk])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.order.delivery_address)
@@ -179,7 +179,7 @@ class OrderDetailViewTestCase(TestCase):
 #         self.client.logout()
 #
 #     def test_orders_export(self):
-#         url = reverse('shopapp:orders_export')
+#         url = reverse('blogapp:orders_export')
 #         response = self.client.get(url)
 #
 #         self.assertEqual(response.status_code, 200)
@@ -215,7 +215,7 @@ class OrdersExportTestCase(TestCase):
         self.client.logout()
 
     def test_orders_export(self):
-        url = reverse('shopapp:orders_export')
+        url = reverse('blogapp:orders_export')
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)

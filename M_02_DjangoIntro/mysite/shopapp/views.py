@@ -15,4 +15,4 @@ def shop_index(request: HttpRequest):
 
 
 
-    return render(request, 'shopapp/shop-index.html', context=context)
+    return render(request, 'blogapp/shop-index.html', context=context)
