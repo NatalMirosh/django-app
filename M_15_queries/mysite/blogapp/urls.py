@@ -6,5 +6,4 @@ app_name = "blogapp"
 
 urlpatterns = [
     path("articles/", ArticleListView.as_view(), name="article-list"),
-
 ]
