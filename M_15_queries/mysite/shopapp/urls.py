@@ -14,7 +14,7 @@ from .views import (
     ProductViewSet,
 )
 
-app_name = "blogapp"
+app_name = "shopapp"
 
 routers = DefaultRouter()
 routers.register("products", ProductViewSet)

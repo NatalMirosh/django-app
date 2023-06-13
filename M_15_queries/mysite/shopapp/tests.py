@@ -23,7 +23,7 @@ class ProductCreateViewTestCase(TestCase):
 
     def test_create_product(self):
         response = self.client.post(
-            reverse('blogapp:product_create'),
+            reverse('shopapp:product_create'),
             {
 
                 "name": self.product_name,
@@ -32,7 +32,7 @@ class ProductCreateViewTestCase(TestCase):
                 "discount": 10,
             }
         )
-        self.assertRedirects(response, reverse('blogapp:products_list'))
+        self.assertRedirects(response, reverse('shopapp:products_list'))
         self.assertTrue(
             Product.objects.filter(name=self.product_name).exists()
         )
@@ -61,7 +61,7 @@ class ProductDetailsTestCase(TestCase):
     def test_get_product(self):
         response = self.client.get(
             reverse(
-                'blogapp:product_details',
+                'shopapp:product_details',
                 kwargs={"pk": self.product.pk},
             ),
         )
@@ -70,7 +70,7 @@ class ProductDetailsTestCase(TestCase):
     def test_get_product_and_check_links(self):
         response = self.client.get(
             reverse(
-                'blogapp:product_details',
+                'shopapp:product_details',
                 kwargs={"pk": self.product.pk},
             ),
         )
@@ -83,13 +83,13 @@ class ProductsListTestCase(TestCase):
     ]
 
     def test_products(self):
-        response = self.client.get(reverse('blogapp:products_list'))
+        response = self.client.get(reverse('shopapp:products_list'))
         self.assertQuerysetEqual(
             qs=Product.objects.filter(archived=False).all(),
             values=(p.pk for p in response.context['products']),
             transform=lambda p: p.pk,
         )
-        self.assertTemplateUsed(response, 'blogapp/products-list.html')
+        self.assertTemplateUsed(response, 'shopapp/products-list.html')
 
 
 class OrdersListViewTestCase(TestCase):
@@ -105,12 +105,12 @@ class OrdersListViewTestCase(TestCase):
         self.client.force_login(self.user)
 
     def test_orders_view(self):
-        response = self.client.get(reverse('blogapp:orders_list'))
+        response = self.client.get(reverse('shopapp:orders_list'))
         self.assertContains(response, 'Orders')
 
     def test_orders_view_not_authenticated(self):
         self.client.logout()
-        response = self.client.get(reverse('blogapp:orders_list'))
+        response = self.client.get(reverse('shopapp:orders_list'))
         self.assertEqual(response.status_code, 302)
         self.assertIn(str(settings.LOGIN_URL), response.url)
 
@@ -121,7 +121,7 @@ class ProductsExportViewTestCase(TestCase):
     ]
 
     def test_get_products_view(self):
-        response = self.client.get(reverse('blogapp:products-export'))
+        response = self.client.get(reverse('shopapp:products-export'))
         self.assertEqual(response.status_code, 200)
         products = Product.objects.order_by('pk').all()
         expected_data = [
