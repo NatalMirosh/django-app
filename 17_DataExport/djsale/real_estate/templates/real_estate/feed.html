@@ -1,0 +1,20 @@
+{% extends 'real_estate/base.html' %}
+
+{% block title %}
+  News Feed
+{% endblock %}
+
+{% block content %}
+  <h1>News Feed</h1>
+  <ul>
+    {% for item in feed %}
+      <li>
+        <h3><a href="{{ item.link }}">{{ item.title }}</a></h3>
+        <p>{{ item.description }}</p>
+        <p>Date added: {{ item.pub_date }}</p>
+      </li>
+    {% empty %}
+      <li>No news available</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

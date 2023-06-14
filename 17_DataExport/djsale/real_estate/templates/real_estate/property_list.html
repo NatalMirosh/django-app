@@ -1,0 +1,18 @@
+{% extends 'real_estate/base.html' %}
+
+
+{% block title %}
+    List of properties for sale
+{% endblock %}
+
+
+{% block body %}
+    <h1>List of properties for sale</h1>
+    <ul>
+    {% for property in properties %}
+        <li>{{ property.title }} - {{ property.price }}</li>
+    {% empty %}
+        <li>No housing available</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
