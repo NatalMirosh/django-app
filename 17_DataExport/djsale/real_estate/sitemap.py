@@ -3,17 +3,17 @@ from django.urls import reverse
 from .models import News
 
 
-class StaticViewSitemap(Sitemap):
-    def items(self):
-        return ['contacts', 'about', 'property_list']
-
-    def lastmod(self, item):
-        return item
+# class StaticViewSitemap(Sitemap):
+#     def items(self):
+#         return ['contacts', 'about', 'property_list']
+#
+#     def lastmod(self, item):
+#         return item
 
 
 class NewsSitemap(Sitemap):
     changefreq = 'weekly'
-    priority = 0.9
+    priority = 0.3
     def items(self):
         return News.objects.all()
 

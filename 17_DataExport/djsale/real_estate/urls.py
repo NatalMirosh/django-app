@@ -2,12 +2,11 @@ from django.urls import path
 from .views import ContactsView, NewsListView, AboutView, PropertyListView
 from .feeds import NewsFeed
 from django.contrib.sitemaps.views import sitemap
-from .sitemap import StaticViewSitemap, NewsSitemap
+from .sitemap import NewsSitemap
 
 app_name = 'real_estate'
 
 sitemaps = {
-    'static': StaticViewSitemap,
     'news': NewsSitemap,
 }
 
