@@ -1,8 +1,9 @@
 from csv import DictWriter
 from timeit import default_timer
 
+from django.core.cache import cache
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -13,14 +14,15 @@ from rest_framework.parsers import MultiPartParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .common import save_csv_products
 from .forms import ProductForm
-from .models import Product, Order, ProductImage
-from .serializers import ProductSerializer
+from .models import Product, Order, ProductImage, User
+from .serializers import ProductSerializer, OrderSerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -187,3 +189,34 @@ class ProductsDataExportView(View):
             for product in products
         ]
         return JsonResponse({"products": products_data})
+
+
+class ExportUserOrdersView(APIView):
+    def get(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
+        cache_key = f'user_orders_{user_id}'
+        cached_data = cache.get(cache_key)
+        if cached_data:
+            return JsonResponse(cached_data, safe=False, json_dumps_params={'indent': 4})
+
+        orders = Order.objects.filter(user=user).order_by('id')
+        serializer = OrderSerializer(orders, many=True)
+        serialized_data = serializer.data
+
+        cache.set(cache_key, serialized_data, 300)
+        return JsonResponse(serialized_data, safe=False, json_dumps_params={'indent': 4})
+
+
+class UserOrdersListView(LoginRequiredMixin, View):
+    def get(self, request, user_id):
+        self.owner = get_object_or_404(User, id=user_id)
+        orders = self.get_queryset()
+
+        context = {
+            'user': self.owner,
+            'orders': orders
+        }
+        return render(request, 'shopapp/user_orders.html', context)
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.owner).prefetch_related('products')
