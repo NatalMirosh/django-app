@@ -4,7 +4,9 @@ from timeit import default_timer
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from rest_framework.parsers import MultiPartParser
@@ -42,6 +44,11 @@ class ProductViewSet(ModelViewSet):
         "price",
         "discount",
     ]
+
+    @method_decorator(cache_page(30))
+    def list(self, *args, **kwargs):
+        #print("hello products list")
+        return super().list(*args, **kwargs)
 
     @action(methods=["get"], detail=False)
     def download_csv(self, request: Request):
@@ -82,6 +89,7 @@ class ProductViewSet(ModelViewSet):
 
 
 class ShopIndexView(View):
+    # @method_decorator(cache_page(30))
     def get(self, request: HttpRequest) -> HttpResponse:
         products = [
             ('Laptop', 1999),
@@ -92,6 +100,7 @@ class ShopIndexView(View):
             "time_running": default_timer(),
             "products": products,
         }
+        print("shop index context", context)
         return render(request, 'shopapp/shop-index.html', context=context)
 
 
