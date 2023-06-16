@@ -1,0 +1,23 @@
+[
+  {
+    "model": "real_estate.propertytype",
+    "pk": 1,
+    "fields": {
+      "name": "Living"
+    }
+  },
+  {
+    "model": "real_estate.propertytype",
+    "pk": 2,
+    "fields": {
+      "name": "For animal"
+    }
+  },
+  {
+    "model": "real_estate.propertytype",
+    "pk": 3,
+    "fields": {
+      "name": "For garden"
+    }
+  }
+]
